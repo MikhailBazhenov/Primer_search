@@ -1,0 +1,25 @@
+cd /home/linux/Primer_example
+python3 masker.py chr5D.txt chr5D_RM.txt
+python3 microsat.py chr5D.txt 10 > SSR_chr5D.txt
+cat chr5B.txt chr5A.txt SSR_chr5D.txt > Unwanted.txt
+
+python3 taskmaker.py masked_chr5D.txt 50 1000-1500 Unwanted.txt > primer3_task.txt
+primer3_core < primer3_task.txt > primer3_out.txt
+python3 out-format.py primer3_out.txt > primers_chr5D_1000.txt
+
+python3 taskmaker.py masked_chr5D.txt 50 1500-2000 Unwanted.txt > primer3_task.txt
+primer3_core < primer3_task.txt > primer3_out.txt
+python3 out-format.py primer3_out.txt > primers_chr5D_1500.txt
+
+python3 taskmaker.py masked_chr5D.txt 50 2000-2500 Unwanted.txt > primer3_task.txt
+primer3_core < primer3_task.txt > primer3_out.txt
+python3 out-format.py primer3_out.txt > primers_chr5D_2000.txt
+
+cat primers_chr5D_1000.txt primers_chr5D_1500.txt primers_chr5D_2000.txt > primers_chr5D.txt
+python3 primer-sorter.py primers_chr5D.txt 1330-5770 1000 > best_primers_chr5D.txt
+
+
+
+ 
+
+
